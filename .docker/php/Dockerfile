@@ -9,22 +9,22 @@ RUN apt-get update \
   && docker-php-ext-install zip pdo_mysql pdo_pgsql pgsql
 
 RUN apt-get install -y libicu-dev \
-&& docker-php-ext-configure intl \
-&& docker-php-ext-install intl
+  && docker-php-ext-configure intl \
+  && docker-php-ext-install intl
 
 # pcov
 RUN pecl install pcov && docker-php-ext-enable pcov
 
-# Xdebug
-#RUN pecl install xdebug \
-# && docker-php-ext-enable xdebug \
-# && echo ";zend_extension=xdebug" > /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+# Xdebug (Optional, commented out)
+# RUN pecl install xdebug \
+#  && docker-php-ext-enable xdebug \
+#  && echo ";zend_extension=xdebug" > /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 
+# Node.js (without Vue CLI)
 RUN curl -sL https://deb.nodesource.com/setup_19.x | bash -
 RUN apt-get install -y nodejs
 RUN npm install npm@latest -g
 RUN npm install yarn -g
-RUN npm install -g @vue/cli
 
 WORKDIR /root
 RUN git clone https://github.com/seebi/dircolors-solarized
